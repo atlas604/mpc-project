@@ -71,7 +71,7 @@ This is the model followed.  The equations calculating t+1 are slightly edited b
 
 `cte = cte + v*sin(epsi)*latency;`
 
-- cross track error, difference between the line and the current vehicle position y, equation remains unchanged
+- cross track error, difference between the line and the current vehicle position y, y is omitted based on the previous assumption
 
 `epsi = epsi + v*delta*latency/Lf;`
 

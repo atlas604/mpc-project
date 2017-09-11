@@ -33,7 +33,7 @@ To mimic realistic driving behavior,
       fg[0] += CppAD::pow(vars[v_start + t], 2);
     }
 
-We want cte and epsi to be close to 0 as possible.  Using Ipopt, the function is optimized through calculating the aggrecate cost.  We tuned the model by putting more emphasis to correct cte and epsi, in this case I've multiplied both variables by 2000 times the original value.  
+We want cte and epsi to be close to 0 as possible.  Using Ipopt, the function is optimized through calculating the aggregate cost.  We tuned the model by putting more emphasis to correct cte and epsi, in this case I've multiplied both variables by 2000 times the original value.  
 
     // Minimize change-rate.
     for (int t = 0; t < N - 1; t++) {

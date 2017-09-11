@@ -60,7 +60,7 @@ This is the model we use.  The equations calculating t+1 are listed as:
 - cross track error, difference between the line and the current vehicle position y
 - orientation error, desired orientation subtracted from the current orientation
 
-Using the initial state, model, constraints and cost functions, the Ipopt solver returns a vector of control inputs(δ and a) that minimizes the cost function.  
+Using the initial state, model, constraints and cost functions, the Ipopt solver returns a vector of control inputs (δ and a) that minimizes the cost function.  
 
 ## Timestep Length and Elapsed Duration (N & dt)
 

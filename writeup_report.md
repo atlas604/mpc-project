@@ -64,8 +64,17 @@ This is the model followed.  The equations calculating t+1 are slightly edited b
 `psi = -v/Lf*delta*latency;`
 
 - the orientation is negative because turning left is a negative sign in the simulator but represented as positive yaw for the MPC.
+
+`v = v + a*latency;`
+
 - velocity, the speed 1 time step after v[t], equation remains unchanged
+
+`cte = cte + v*sin(epsi)*latency;`
+
 - cross track error, difference between the line and the current vehicle position y, equation remains unchanged
+
+`epsi = epsi + v*delta*latency/Lf;`
+
 - orientation error, desired orientation subtracted from the current orientation, equation remains unchanged
 
 Using the initial state, model, constraints and cost functions, the Ipopt solver returns a vector of control inputs (δ and a) that minimizes the cost function.  

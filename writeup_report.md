@@ -18,17 +18,16 @@ We predict the state and apply the control inputs, once the vehicle moves into t
 **Actuators**
 
 To mimic realistic driving behavior,
-
 - Lower and Upperbounds for steering angles are constrained within -25 and 25 degrees converted to radians (MPC.cpp, line 180-186).
 - Acceleration can be between -1 and 1, <0 implying braking and >0 implying acceleration (MPC.cpp, line 188-193).
 
 **Cost Function**
 
-  for (int t = 0; t < N; t++) {
-    fg[0] += CppAD::pow(vars[cte_start + t] , 2);
-    fg[0] += CppAD::pow(vars[epsi_start + t], 2);
-    fg[0] += CppAD::pow(vars[v_start + t], 2);
-  }
+    for (int t = 0; t < N; t++) {
+      fg[0] += CppAD::pow(vars[cte_start + t] , 2);
+      fg[0] += CppAD::pow(vars[epsi_start + t], 2);
+      fg[0] += CppAD::pow(vars[v_start + t], 2);
+    }
 
 We want cte and epsi to be close to 0 as possible.  Using Ipopt the function is optimized through calculating the aggrecate cost.
 

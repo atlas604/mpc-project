@@ -54,8 +54,12 @@ Here we optimize the control to make inputs more consistent and smooth, and adju
 <img src="./equations.png">
 
 This is the model followed.  The equations calculating t+1 are slightly edited based on a few assumptions:
+
 - calculating x and y positions in the next timestep knowing the initial x and y values are 0, thus omitting these variables from the equation.  
+`px = v*cos(delta)*latency;
+py = v*sin(delta)*latency;`
 - the orientation is negative because turning left is a negative sign in the simulator but represented as positive yaw for the MPC.
+`psi = -v/Lf*delta*latency;`
 - velocity, the speed 1 time step after v[t], equation remains unchanged
 - cross track error, difference between the line and the current vehicle position y, equation remains unchanged
 - orientation error, desired orientation subtracted from the current orientation, equation remains unchanged

@@ -12,16 +12,19 @@ We predict the state and apply the control inputs, once the vehicle moves into t
 **State**
 
 - x, y = cars position in coordinates transformed from map coordinates
-- ψ (psi) = vehicles orientation
+- ψ (psi) = vehicle's orientation
 - v = velocity
 
 **Actuators**
+
+- δ (delta) = steering angle
+- a = acceleration/braking
 
 To mimic realistic driving behavior,
 - Lower and Upperbounds for steering angles are constrained within -25 and 25 degrees converted to radians (MPC.cpp, line 180-186).
 - Acceleration can be between -1 and 1, <0 implying braking and >0 implying acceleration (MPC.cpp, line 188-193).
 
-**Cost Function**
+**Cost Functions**
 
     // The part of the cost based on the reference state.
     for (int t = 0; t < N; t++) {
@@ -46,11 +49,18 @@ We want cte and epsi to be close to 0 as possible.  Using Ipopt, the function is
 
 Here we optimize the control to make inputs more consistent and smooth, and adjust the time between actuations.  
 
-
 **Update Equations**
 
 <img src="./equations.png">
 
+These equations calculating t+1 are listed as:
+- x and y positions in the next timestep
+- orientation, the angle of which the vehicle is turning
+- velocity, the current speed
+- cross track error, difference between the line and the current vehicle position y
+- orientation error, desired orientation subtracted from the current orientation
+
+Using the initial state, model, constraints and cost functions, the Ipopt solver returns a vector of control inputs(δ and a) that minimizes the cost function.  
 
 ## Timestep Length and Elapsed Duration (N & dt)
 

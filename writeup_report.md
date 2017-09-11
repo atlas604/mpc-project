@@ -12,7 +12,7 @@ We predict the state and apply the control inputs, once the vehicle moves into t
 **State**
 
 - x, y = cars position in coordinates
-- psi = vehicles orientation
+- ψ (psi) = vehicles orientation
 - v = velocity
 
 **Actuators**

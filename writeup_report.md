@@ -53,12 +53,12 @@ Here we optimize the control to make inputs more consistent and smooth, and adju
 
 <img src="./equations.png">
 
-This is the model we use.  The equations calculating t+1 are listed as:
-- x and y positions in the next timestep
-- orientation, the angle of which the vehicle is turning
-- velocity, the current speed
-- cross track error, difference between the line and the current vehicle position y
-- orientation error, desired orientation subtracted from the current orientation
+This is the model followed.  The equations calculating t+1 are slightly edited based on a few assumptions:
+- calculating x and y positions in the next timestep knowing the initial x and y values are 0, thus omitting these variables from the equation.  
+- the orientation is negative because turning left is a negative sign in the simulator but represented as positive yaw for the MPC.
+- velocity, the speed 1 time step after v[t], equation remains unchanged
+- cross track error, difference between the line and the current vehicle position y, equation remains unchanged
+- orientation error, desired orientation subtracted from the current orientation, equation remains unchanged
 
 Using the initial state, model, constraints and cost functions, the Ipopt solver returns a vector of control inputs (δ and a) that minimizes the cost function.  
 

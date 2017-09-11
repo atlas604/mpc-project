@@ -91,6 +91,8 @@ int main() {
           double py = j[1]["y"];
           double psi = j[1]["psi"];
           double v = j[1]["speed"];
+          double delta = j[1]["steering_angle"];
+          double a = j[1]["throttle"];
 
           for (int i = 0; i < ptsx.size(); i++) {
             // shift car reference angle to 90 degrees
@@ -110,22 +112,19 @@ int main() {
           auto coeffs = polyfit(ptsx_transform, ptsy_transform, 3);
 
           // calculate cte and epsi
-          //double cte = polyeval(coeffs, 0);
+          double cte = polyeval(coeffs, 0);
           //double epsi = psi - atan(coeffs[1]) + 2 * px * coeffs[2] + 3 * coeffs[3] * pow(px, 2);
-          //double epsi = -atan(coeffs[1]);
-
-          double steer_value = j[1]["steering_angle"];
-          double throttle_value = j[1]["throttle"];
+          double epsi = -atan(coeffs[1]);
 
           // predict state in 100ms
           double latency = 0.1;
           double Lf = 2.67;
-          v += throttle_value*latency;
-          px = v*latency;
-          py = 0;
-          psi = -v*steer_value*latency/Lf;
-          double epsi = -atan(coeffs[1]) + psi;
-          double cte = polyeval(coeffs,0)+v*sin(epsi)*latency;
+          px = v*cos(delta)*latency;
+          py = v*sin(delta)*latency;
+          psi = -v/Lf*delta*latency;
+          epsi = epsi + v*delta*latency/Lf;
+          cte = cte + v*sin(epsi)*latency;
+          v = v + a*latency;
 
           Eigen::VectorXd state(6);
           state << px, py, psi, v, cte, epsi;

@@ -7,7 +7,7 @@ Self-Driving Car Engineer Nanodegree Program
 
 We use Model Predictive Control to minimize the cross track and orientation errors of the vehicle with respect to a reference path drawn by a polynomial.  The state or the desired positioning of the vehicle is set to the center of the road.  
 
-We predict the state and apply the control inputs, once the vehicle moves into the predicted state, we repeat the process of predicting the state and applying the control inputs (this creates our feedback loop).  
+We predict the state and apply the control inputs, once the vehicle moves into the predicted state, we repeat the process of predicting the state and applying the control inputs (this creates our state feedback loop).  
 
 **State**
 
@@ -49,7 +49,7 @@ Here we optimize the control to make inputs more consistent and smooth, and adju
 
 **Update Equations**
 
-![alt text][equations.png]
+<img src="./equations.png">
 
 
 ## Timestep Length and Elapsed Duration (N & dt)

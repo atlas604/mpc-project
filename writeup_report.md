@@ -56,6 +56,7 @@ Here we optimize the control to make inputs more consistent and smooth, and adju
 This is the model followed.  The equations calculating t+1 are slightly edited based on a few assumptions:
 
 `px = v*cos(delta)*latency;`
+
 `py = v*sin(delta)*latency;`
 
 - calculating x and y positions in the next timestep knowing the initial x and y values are 0, thus omitting these variables from the equation.

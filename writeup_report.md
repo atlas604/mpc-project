@@ -11,7 +11,7 @@ We predict the state and apply the control inputs, once the vehicle moves into t
 
 **State**
 
-- x, y = cars position in coordinates
+- x, y = cars position in coordinates transformed from map coordinates
 - ψ (psi) = vehicles orientation
 - v = velocity
 
@@ -45,6 +45,11 @@ We want cte and epsi to be close to 0 as possible.  Using Ipopt, the function is
     }
 
 Here we optimize the control to make inputs more consistent and smooth, and adjust the time between actuations.  
+
+
+**Update Equations**
+
+![alt text][equations.png]
 
 
 ## Timestep Length and Elapsed Duration (N & dt)

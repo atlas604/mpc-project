@@ -22,18 +22,28 @@ To mimic realistic driving behavior,
 - Acceleration can be between -1 and 1, <0 implying braking and >0 implying acceleration (MPC.cpp, line 188-193).
 
 **Cost Function**
-
+    // The part of the cost based on the reference state.
     for (int t = 0; t < N; t++) {
       fg[0] += CppAD::pow(vars[cte_start + t] , 2);
       fg[0] += CppAD::pow(vars[epsi_start + t], 2);
       fg[0] += CppAD::pow(vars[v_start + t], 2);
     }
 
-We want cte and epsi to be close to 0 as possible.  Using Ipopt the function is optimized through calculating the aggrecate cost.
+We want cte and epsi to be close to 0 as possible.  Using Ipopt, the function is optimized through calculating the aggrecate cost.  We tuned the model by putting more emphasis to correct cte and epsi, in this case I've multiplied both variables by 2000 times the original value.  
 
+    // Minimize change-rate.
+    for (int t = 0; t < N - 1; t++) {
+      fg[0] += CppAD::pow(vars[delta_start + t], 2);
+      fg[0] += CppAD::pow(vars[a_start + t], 2);
+    }
 
+    // Minimize the value gap between sequential actuations.
+    for (int t = 0; t < N - 2; t++) {
+      fg[0] += CppAD::pow(vars[delta_start + t + 1] - vars[delta_start + t], 2);
+      fg[0] += CppAD::pow(vars[a_start + t + 1] - vars[a_start + t], 2);
+    }
 
-
+Here we optimize the control to make inputs more consistent and smooth, and adjust the time between actuations.  
 
 
 ## Timestep Length and Elapsed Duration (N & dt)

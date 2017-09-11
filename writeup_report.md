@@ -5,6 +5,38 @@ Self-Driving Car Engineer Nanodegree Program
 
 ## The Model
 
+We use Model Predictive Control to minimize the cross track and orientation errors of the vehicle with respect to a reference path drawn by a polynomial.  The state or the desired positioning of the vehicle is set to the center of the road.  
+
+We predict the state and apply the control inputs, once the vehicle moves into the predicted state, we repeat the process of predicting the state and applying the control inputs (this creates our feedback loop).  
+
+**State**
+
+x, y = cars position in coordinates
+psi = vehicles orientation
+v = velocity
+
+**Actuators**
+
+To mimic realistic driving behavior,
+
+- Lower and Upperbounds for steering angles are constrained within -25 and 25 degrees converted to radians (MPC.cpp, line 180-186).
+- Acceleration can be between -1 and 1, <0 implying braking and >0 implying acceleration (MPC.cpp, line 188-193).
+
+**Cost Function**
+
+        for (int t = 0; t < N; t++) {
+          fg[0] += CppAD::pow(vars[cte_start + t] , 2);
+          fg[0] += CppAD::pow(vars[epsi_start + t], 2);
+          fg[0] += CppAD::pow(vars[v_start + t], 2);
+        }
+
+We want cte and epsi to be close to 0 as possible.  Using Ipopt the function is optimized through calculating the aggrecate cost.
+
+
+
+
+
+
 ## Timestep Length and Elapsed Duration (N & dt)
 
 **N (timestep length)**
@@ -22,4 +54,4 @@ Ideally, dt should be minimized as much as possible.  Without latency, the car r
 
 ## Model Predictive Control with Latency
 
-Latency is handled with predicting the state of x, y, psi and velocity 100ms in the future, and then processed through the MPC solver.
+Latency is handled by predicting the state of x, y, psi and velocity 100ms in the future, and using this information to process through the MPC solver.  This way the control inputs are synced 100ms in the future.  

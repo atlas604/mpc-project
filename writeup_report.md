@@ -11,9 +11,9 @@ We predict the state and apply the control inputs, once the vehicle moves into t
 
 **State**
 
-x, y = cars position in coordinates
-psi = vehicles orientation
-v = velocity
+- x, y = cars position in coordinates
+- psi = vehicles orientation
+- v = velocity
 
 **Actuators**
 
@@ -24,11 +24,11 @@ To mimic realistic driving behavior,
 
 **Cost Function**
 
-        for (int t = 0; t < N; t++) {
-          fg[0] += CppAD::pow(vars[cte_start + t] , 2);
-          fg[0] += CppAD::pow(vars[epsi_start + t], 2);
-          fg[0] += CppAD::pow(vars[v_start + t], 2);
-        }
+  for (int t = 0; t < N; t++) {
+    fg[0] += CppAD::pow(vars[cte_start + t] , 2);
+    fg[0] += CppAD::pow(vars[epsi_start + t], 2);
+    fg[0] += CppAD::pow(vars[v_start + t], 2);
+  }
 
 We want cte and epsi to be close to 0 as possible.  Using Ipopt the function is optimized through calculating the aggrecate cost.
 

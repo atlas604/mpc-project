@@ -22,6 +22,7 @@ To mimic realistic driving behavior,
 - Acceleration can be between -1 and 1, <0 implying braking and >0 implying acceleration (MPC.cpp, line 188-193).
 
 **Cost Function**
+
     // The part of the cost based on the reference state.
     for (int t = 0; t < N; t++) {
       fg[0] += CppAD::pow(vars[cte_start + t] , 2);

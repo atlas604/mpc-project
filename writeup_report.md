@@ -53,7 +53,7 @@ Here we optimize the control to make inputs more consistent and smooth, and adju
 
 <img src="./equations.png">
 
-These equations calculating t+1 are listed as:
+This is the model we use.  The equations calculating t+1 are listed as:
 - x and y positions in the next timestep
 - orientation, the angle of which the vehicle is turning
 - velocity, the current speed
